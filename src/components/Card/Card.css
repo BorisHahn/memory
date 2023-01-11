@@ -1,0 +1,49 @@
+.card {
+  width: 150px;
+  height: 250px;
+  margin: 5px;
+  position: relative;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+  cursor: pointer;
+  list-style: none;
+  border-radius: 10px;
+}
+
+@media (hover: hover) {
+  .card img:hover {
+    background-color: #97c9eb88;
+    transition: 0.5s;
+    scale: 1.02;
+  }
+
+  .flip img:hover {
+    background-color: #97c9eb88;
+    transition: none;
+  }
+}
+
+.card:active {
+  transform: scale(0.97);
+  transition: transform 0.2s;
+}
+
+.card__front,
+.card__back {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  position: absolute;
+  border-radius: 10px;
+  background-color: #97c9eb88;
+  backface-visibility: hidden;
+}
+.card__front {
+  transform: rotateY(180deg);
+}
+
+.card.flip {
+  transform: rotateY(180deg);
+}
