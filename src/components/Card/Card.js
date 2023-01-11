@@ -4,12 +4,10 @@ import shirt from "../../images/shirt.png";
 
 const Card = ({ card, handleTurnCard }) => {
   const { image, opened } = card;
-  // const [rotate, setRotate] = useState(false);
-
+  
   const cardStyle = opened ? "card flip" : "card";
 
   const handleTurn = () => {
-    // setRotate(!rotate);
     handleTurnCard(card);
   };
 
