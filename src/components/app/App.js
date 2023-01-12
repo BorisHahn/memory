@@ -1,24 +1,28 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import Grid from '../Grid/Grid';
+import border from '../../images/border.png';
 const { array } = require('../../utils/store');
 
 const App = () => {
   const [cards, setCards] = useState([]);
   const [turnCards, setTurnCards] = useState([]);
   const [counter, setCounter] = useState(0);
+  const [counterComputer, setCounterComputer] = useState(0);
   useEffect(() => {
     setCards([...array]);
   }, []);
 
+  //Функция генерации случайного индекса
+
+  const getNewIndex = (min, max) => {
+    return Math.floor(Math.random() * (max - min) + min);
+  };
+
   //Генерация новой сетки карточек
 
   const generateNewGridOfCards = (array) => {
-    let newArray = new Array(4);
-
-    const getNewIndex = (min, max) => {
-      return Math.floor(Math.random() * (max - min) + min);
-    };
+    let newArray = new Array(12);
 
     for (let i = 0; i < newArray.length; i++) {
       const rand = getNewIndex(0, array.length);
@@ -69,11 +73,31 @@ const App = () => {
       setTurnCards([]);
       setTimeout(() => generateNewGridOfCards(newCards), 500);
     }, 1000);
+
+    setTimeout(() => stepByComputer(), 2000);
+  };
+
+  // Ход компьютера
+
+  const stepByComputer = () => {
+    const firstRand = getNewIndex(0, cards.length);
+    handleTurnCard(cards[firstRand]);
   };
 
   return (
     <div className="app">
-      <h1 className="app__counter">Score: {counter}</h1>
+      <div className="header">
+        <div className="app__counter-wrapper">
+          <div className="app__counter-border">
+            <p className="app__counter">{counter}</p>
+          </div>
+        </div>
+        <div className="app__counter-wrapper">
+          <div className="app__counter-border">
+            <p className="app__counter">{counterComputer}</p>
+          </div>
+        </div>
+      </div>
       <Grid cards={cards} handleTurnCard={handleTurnCard} />
     </div>
   );
